@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const { errorHandler } = require("./middlewares/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const { auth } = require("./middlewares/authMiddleware");
 
 // connect to database
 connectDB();
@@ -17,6 +18,7 @@ app.use(cookieParser());
 // set up routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/checkuser", auth);
 
 // error handler
 app.use(errorHandler);
