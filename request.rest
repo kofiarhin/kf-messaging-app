@@ -1,6 +1,8 @@
 ###
 GET http://localhost:5000/api/users
 
+
+# register user
 ###
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
@@ -10,3 +12,25 @@ Content-Type: application/json
     "email": "lebron@gmail.com",
     "password": "password"
 }
+
+# login user
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "lebron@gmail.com",
+    "password": "password"
+}
+
+# logout user
+###
+GET http://localhost:5000/api/auth/logout
+
+# check authorization
+###
+GET http://localhost:5000/api/checkuser
+
+#get profile
+###
+GET http://localhost:5000/api/auth/profile

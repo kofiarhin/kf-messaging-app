@@ -7,6 +7,11 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const getUsers = async (Req, res, next) => {
+  return res.json({ message: "get users" });
+};
+
 module.exports = {
   getUser,
+  getUsers,
 };
