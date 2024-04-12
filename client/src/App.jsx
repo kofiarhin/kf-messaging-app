@@ -1,5 +1,8 @@
 import "./App.scss";
 import { useEffect } from "react";
+
+import { socket } from "./utils/helper";
+
 const App = () => {
   useEffect(() => {
     const getUsers = async () => {
