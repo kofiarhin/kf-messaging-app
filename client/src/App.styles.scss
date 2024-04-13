@@ -1,0 +1,56 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.container {
+  width: 1200px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 300;
+  text-transform: capitalize;
+  &.center {
+    text-align: center;
+  }
+}
+
+.form-wrapper {
+  width: 540px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  label,
+  input {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.8rem 0rem;
+    text-indent: 20px;
+    font-size: 1.2rem;
+  }
+
+  .input-group {
+    margin-bottom: 1rem;
+  }
+  button {
+    background-color: black;
+    display: block;
+    width: 100%;
+    color: white;
+    padding: 1rem 0rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+}

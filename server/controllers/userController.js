@@ -1,3 +1,4 @@
+const User = require("../models/userModel");
 const getUser = async (req, res, next) => {
   try {
     res.status(400);
@@ -8,7 +9,8 @@ const getUser = async (req, res, next) => {
 };
 
 const getUsers = async (Req, res, next) => {
-  return res.json({ message: "get users" });
+  const users = await User.find();
+  return res.json(users);
 };
 
 module.exports = {
