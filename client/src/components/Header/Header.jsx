@@ -23,7 +23,7 @@ const Header = () => {
         <nav>
           {user ? (
             <>
-              <Link to="/dashboard"> Dashboard </Link>
+              <Link to="/conversation"> Conversation</Link>
               <button onClick={handleLogout}>Logout</button>
             </>
           ) : (

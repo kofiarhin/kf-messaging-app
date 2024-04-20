@@ -1,0 +1,35 @@
+@import "../../styles/variables.styles.scss";
+.main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 4fr;
+  height: 100vh;
+  .messages {
+    background-color: $grey;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    .message-list {
+      flex: 1;
+    }
+  }
+  .users {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($black, 0.8);
+    color: white;
+    .side-nav {
+      flex: 1;
+      background-color: $darkGrey;
+    }
+    button {
+      height: 60px;
+      padding: 1rem 0rem;
+      font-size: 1.2rem;
+      width: 100%;
+      cursor: pointer;
+      border: none;
+      background-color: $darkGrey;
+      color: white;
+    }
+  }
+}

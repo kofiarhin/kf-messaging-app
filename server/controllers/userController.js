@@ -9,7 +9,10 @@ const getUser = async (req, res, next) => {
 };
 
 const getUsers = async (Req, res, next) => {
-  const users = await User.find();
+  const users = await User.find().populate({
+    path: "contacts",
+    select: "-password -converstations -contacts",
+  });
   return res.json(users);
 };
 

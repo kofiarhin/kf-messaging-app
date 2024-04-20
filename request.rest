@@ -8,20 +8,12 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "name": "lebron james",
-    "email": "lebron@gmail.com",
+    "name": "kyrie irving",
+    "email": "kyrie@gmail.com",
     "password": "password"
 }
 
-# login user
-###
-POST http://localhost:5000/api/auth/login
-Content-Type: application/json
 
-{
-    "email": "lebron@gmail.com",
-    "password": "password"
-}
 
 # logout user
 ###
@@ -34,3 +26,25 @@ GET http://localhost:5000/api/checkuser
 #get profile
 ###
 GET http://localhost:5000/api/auth/profile
+
+
+# login user
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "kofiarhin@gmail.com",
+    "password": "password"
+}
+
+
+# add contact
+###
+POST http://localhost:5000/api/contacts/add
+Content-Type: application/json
+
+{
+    "usename": "kyrie Irving",
+    "email":"lebron@gmail.com"
+}

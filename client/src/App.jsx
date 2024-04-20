@@ -3,21 +3,23 @@ import "./App.styles.scss";
 import { useEffect } from "react";
 
 import Header from "./components/Header/Header";
-// import { socket } from "./utils/helper";
+import { socket } from "./utils/helper";
 import Home from "./Pages/Home/Home";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
-import Dashboard from "./Pages/Dashboard/Dashboard";
+import Conversation from "./Pages/Conversation/Conversation";
+import AuthLayout from "./Layout/AuthLayout/AuthLayout";
 const App = () => {
   return (
     <>
       <Router>
-        <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+          <Route path="/conversation" element={<Conversation />} />
         </Routes>
       </Router>
     </>
