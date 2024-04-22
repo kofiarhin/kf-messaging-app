@@ -8,6 +8,7 @@ const { errorHandler } = require("./middlewares/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const conversationRoutes = require("./routes/conversationRoutes");
 const { auth } = require("./middlewares/authMiddleware");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -38,6 +39,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/checkuser", auth);
 app.use("/api/contacts", contactRoutes);
+app.use("/api/conversations", conversationRoutes);
 
 // error handler
 app.use(errorHandler);
