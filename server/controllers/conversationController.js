@@ -1,45 +1,38 @@
 const Conversation = require("../models/converstationModel");
 const User = require("../models/userModel");
 const Contact = require("../models/contactModel");
+const Message = require("../models/messageModel");
 const createConversation = async (req, res, next) => {
   try {
     // create conversation
     const conversation = await Conversation.create({
       participants: [req.user._id, req.body.senderId],
-      messages: [{ senderId: req.body.senderId, content: req.body.content }],
     });
 
+    const participants = conversation.participants;
     const conversationId = conversation._id;
-    const particapants = conversation.participants;
+
+    // create message
+    const messageMap = await Promise.all(
+      participants.map(async (participant) => {
+        const message = await Message.create({
+          userId: participant,
+          conversationId,
+          messages: [
+            { content: req.body.content, senderId: req.body.senderId },
+          ],
+        });
+      })
+    );
+
     const usersUpdate = await Promise.all(
-      particapants.map(async (participant) => {
+      participants.map(async (participant) => {
         const user = await User.findByIdAndUpdate(participant, {
           $push: { conversations: participant },
         });
         return user;
       })
     );
-
-    console.log(res);
-
-    // //  update sender converstaion
-    // // update users conversations
-    // const senderConvo = await User.findByIdAndUpdate(
-    //   req.user._id,
-    //   {
-    //     $push: { conversations: conversationId },
-    //   },
-    //   { new: true }
-    // );
-
-    // // console.log(senderConvo);
-    // const receiverConvo = await User.findByIdAndUpdate(
-    //   req.body.senderId,
-    //   {
-    //     $push: { conversations: conversationId },
-    //   },
-    //   { new: true }
-    // );
 
     return res.json(conversation);
   } catch (error) {
