@@ -1,9 +1,17 @@
 const { Router } = require("express");
-const { addContact } = require("../controllers/contactController");
+
+const {
+  createContact,
+  deleteContact,
+  updateContact,
+  getContacts,
+} = require("../controllers/contactController");
 const { auth } = require("../middlewares/authMiddleware");
 
 const router = Router();
-
-router.post("/add", auth, addContact);
+router.get("/", auth, getContacts);
+router.post("/", auth, createContact);
+router.delete("/", auth, deleteContact);
+router.put("/", auth, updateContact);
 
 module.exports = router;

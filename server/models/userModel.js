@@ -23,8 +23,23 @@ const userSchema = new mongoose.Schema(
     ],
     contacts: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        username: {
+          type: String,
+          required: true,
+        },
+        blocked: {
+          type: Boolean,
+          default: false,
+        },
+        conversationId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+        },
       },
     ],
   },

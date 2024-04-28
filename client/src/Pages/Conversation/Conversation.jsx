@@ -8,19 +8,22 @@ import { logoutUser, reset } from "../../redux/user/userSlice";
 import SideNav from "../../components/SideNav/SideNav";
 import InputForm from "../../components/InputForm/InputForm";
 
+
 const Conversation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isLoading, isError } = useSelector((state) => state.auth);
+  const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth);
+  const { currentConversationId }  = useSelector((state) => state.conversation)
 
   useEffect(() => {
-    if (!user) {
+    if (!user || isSuccess) {
       navigate("/login");
     }
-  }, [user]);
+  }, [user, isSuccess]);
   const handleLogout = () => {
     dispatch(logoutUser());
-    dispatch(reset());
+    navigate("/login")
+   
   };
   return (
     <div className="main-grid">
@@ -28,15 +31,17 @@ const Conversation = () => {
         <div className="side-nav">
           <SideNav />
         </div>
-        <button onClick={handleLogout}>New Conversation</button>
+        <button onClick={handleLogout}>Logout</button>
       </div>
       <div className="messages">
-        <div className="message-list">
+         { currentConversationId && <>
+          <div className="message-list">
           <MessageList />
         </div>
         <div className="input-wrapper">
           <InputForm />
         </div>
+         </>}
       </div>
     </div>
   );

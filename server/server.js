@@ -9,6 +9,7 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const conversationRoutes = require("./routes/conversationRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const { auth } = require("./middlewares/authMiddleware");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -31,7 +32,19 @@ connectDB();
 // connect socket io
 
 io.on("connection", (socket) => {
-  console.log("connected to socket");
+
+  socket.on("join", (conversationId) => {
+    socket.join(conversationId)
+  })
+  socket.on('new_message', ({ id, message }) => {
+    console.log("new message")
+    io.to(id).emit('message', message);
+  });
+  socket.on("disconnect", () => {
+    console.log("socket connection disconnected");
+
+   
+  });
 });
 
 // set up routes
@@ -40,6 +53,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/checkuser", auth);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/conversations", conversationRoutes);
+app.use("/api/messages", messageRoutes);
 
 // error handler
 app.use(errorHandler);

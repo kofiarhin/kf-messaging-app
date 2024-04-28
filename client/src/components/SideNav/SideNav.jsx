@@ -1,29 +1,30 @@
 import { Link, Routes, Route } from "react-router-dom";
 import Contacts from "../Contacts/Contacts";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setShowContacts, setShowChats } from "../../redux/navigation/navigationSlice";
 import Chats from "../Chats/Chats";
 import "./sideNav.styles.scss";
 const SideNav = () => {
-  const [showChats, setShowChats] = useState(true);
-  const [showContacts, setShowContacts] = useState(false);
+  const dispatch = useDispatch()
+  const { showChats, showContacts}  = useSelector( state => state.navigation)
 
   const handleShowChats = () => {
-    setShowChats(true);
-    setShowContacts(false);
+    dispatch(setShowChats())
   };
 
   const handleShowContacts = () => {
-    setShowContacts(true);
-    setShowChats(false);
+     dispatch(setShowContacts())
   };
   return (
     <div id="sideNav">
       <div className="cta-wrapper">
-        <button onClick={handleShowContacts}>Contacts</button>
         <button onClick={handleShowChats}>Chats</button>
+        <button onClick={handleShowContacts}>Contacts</button>
       </div>
-      {showContacts && <Contacts />}
       {showChats && <Chats />}
+      {showContacts && <Contacts />}
     </div>
   );
 };

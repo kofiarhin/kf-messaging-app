@@ -1,0 +1,12 @@
+#contact-list {
+    margin-top: 1rem;
+    .contact-unit {
+        margin-bottom: 1rem;
+        cursor: pointer;
+        padding-left: 1rem;
+        p {
+            font-size: 1.2rem;
+            text-transform: capitalize;
+        }
+    }
+}

@@ -1,15 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.styles.scss";
 import { useEffect } from "react";
-
 import Header from "./components/Header/Header";
-import { socket } from "./utils/helper";
 import Home from "./Pages/Home/Home";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import Conversation from "./Pages/Conversation/Conversation";
 import AuthLayout from "./Layout/AuthLayout/AuthLayout";
+import {  useSelector, useDispatch} from "react-redux";
+import { connectSocket } from "./redux/socket/socketSlice";
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(connectSocket())
+  }, [dispatch])
+ 
   return (
     <>
       <Router>

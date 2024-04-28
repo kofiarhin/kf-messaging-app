@@ -1,8 +1,14 @@
 const User = require("../models/userModel");
 const getUser = async (req, res, next) => {
   try {
-    res.status(400);
-    throw new Error("something went wrong");
+    const user = await User.findById(req.params.id).select("name email");
+
+    if(!user) {
+      res.status(400);
+      throw new Error({message: "user not found"})
+    }
+
+    return res.json(user)
   } catch (error) {
     next(error);
   }
