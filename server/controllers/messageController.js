@@ -5,25 +5,25 @@ const createMessage = async (req, res, next) => {
     const { conversationId, senderId, content } = req.body;
 
     // check if conversation id already exist
-    const checkConversation = await Message.findOne({ conversationId});
+    const checkConversation = await Message.findOne({ conversationId });
 
-    if(!checkConversation) {
+    if (!checkConversation) {
       const message = await Message.create({
         conversationId,
         messages: [{ senderId, content }],
-      })
+      });
       return res.json(message);
-    } 
+    }
 
-     const conversationUpdate = await Message.findOneAndUpdate({conversationId}, {
-      $push: { messages: { senderId, content} }
-     }, { new: true});
+    const conversationUpdate = await Message.findOneAndUpdate(
+      { conversationId },
+      {
+        $push: { messages: { senderId, content } },
+      },
+      { new: true }
+    );
 
-    
-
-    return res.json(conversationUpdate)
-
-    
+    return res.json(conversationUpdate);
   } catch (error) {
     next(error);
   }
@@ -49,16 +49,16 @@ const updateMessages = async (req, res, next) => {
     next(error);
   }
 };
-const getMessages = async(req, res, next) => {
-
-   
+const getMessages = async (req, res, next) => {
   try {
-    const { conversationId } = req.query; 
-     const messages = await Message.findOne({conversationId}).populate("conversationId");
-     return res.json(messages)
+    const { conversationId } = req.query;
+    const messages = await Message.findOne({ conversationId })
+      .populate("conversationId")
+      .sort({ "messages.createdAt": -1 });
+    return res.json(messages);
   } catch (error) {
-      next(error)
+    next(error);
   }
-}
+};
 
 module.exports = { createMessage, updateMessages, getMessages };

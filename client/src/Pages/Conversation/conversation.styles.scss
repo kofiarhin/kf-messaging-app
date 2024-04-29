@@ -3,13 +3,18 @@
   display: grid;
   grid-template-columns: 1.5fr 4fr;
   height: 100vh;
+  overflow-y: hidden;
   .messages {
     background-color: $grey;
     color: white;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    position: relative;
+    overflow-y: scroll;
     .message-list {
       flex: 1;
+      padding-bottom: 80px;
     }
   }
   .users {

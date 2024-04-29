@@ -1,37 +1,40 @@
-import "./messageList.styles.scss"
-import {useEffect, useState} from "react";
-import { useSelector, useDispatch} from "react-redux";
+import "./messageList.styles.scss";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { getMessages, resetNewMessage } from "../../redux/message/messageSlice";
+import { getParticipant } from "../../redux/conversation/conversationSlice";
 const MessageList = () => {
   const dispatch = useDispatch();
-  const { currentConversationId } = useSelector( state => state.conversation);
-  const { user } = useSelector(state => state.auth)
-  // const [ messages, setMessages] = useState([]);
-  // const [ participantData, setParticipantData ] =  useState(null)
+  const { currentConversationId } = useSelector((state) => state.conversation);
+  const { user } = useSelector((state) => state.auth);
+  const { participant } = useSelector((state) => state.conversation);
 
-  const { messages, participant, newMessage } = useSelector(state => state.message)
+  const [sortedData, setSortedData] = useState([]);
 
-  useEffect(() => {  
-    dispatch(getMessages())
-    if(newMessage) {
-      dispatch(resetNewMessage())
+  const { messages, newMessage } = useSelector((state) => state.message);
+
+  useEffect(() => {
+    dispatch(getParticipant(currentConversationId));
+    dispatch(getMessages());
+    if (newMessage) {
+      dispatch(resetNewMessage());
     }
-  }, [currentConversationId, dispatch, newMessage])
-
-
-
+  }, [currentConversationId, dispatch, newMessage]);
 
   return (
     <div id="message-list">
-      
-      {messages.length > 0 && <>
-        <h1 className="heading center"> {participant.name} </h1>
-          {messages.map( (message, index) => {
-            return <div key={index} className="message-unit">
-              <p>  {message.content} </p>
-            </div>
+      {participant && <h1 className="heading center"> {participant.name} </h1>}
+      {messages.length > 0 && (
+        <>
+          {messages.map((message, index) => {
+            return (
+              <div key={index} className="message-unit">
+                <p> {message.content} </p>
+              </div>
+            );
           })}
-      </>}
+        </>
+      )}
     </div>
   );
 };

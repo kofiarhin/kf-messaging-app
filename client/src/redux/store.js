@@ -2,9 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./user/userSlice";
 import contactReducer from "./contact/contactSlice";
 import conversationReducer from "./conversation/conversationSlice";
-import navigationReducer  from "./navigation/navigationSlice";
+import navigationReducer from "./navigation/navigationSlice";
 import socketReducer from "./socket/socketSlice";
 import messageReducer from "./message/messageSlice";
+import chatReducer from "./chat/chatSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     conversation: conversationReducer,
     navigation: navigationReducer,
     socket: socketReducer,
-    message: messageReducer
+    message: messageReducer,
+    chat: chatReducer,
   },
 });

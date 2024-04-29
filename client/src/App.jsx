@@ -7,16 +7,17 @@ import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import Conversation from "./Pages/Conversation/Conversation";
 import AuthLayout from "./Layout/AuthLayout/AuthLayout";
-import {  useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { connectSocket } from "./redux/socket/socketSlice";
+import { getChatData } from "./redux/chat/chatSlice";
 const App = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(connectSocket())
-  }, [dispatch])
- 
+    dispatch(getChatData());
+    dispatch(connectSocket());
+  }, [dispatch]);
+
   return (
     <>
       <Router>
