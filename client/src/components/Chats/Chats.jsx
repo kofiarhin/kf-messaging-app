@@ -6,7 +6,6 @@ const Chats = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.chat);
 
-  console.log(data);
   const {
     user,
     user: { conversations, _id },

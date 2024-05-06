@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getMessages = createAsyncThunk(
   "message/getMessages",
   async (_, thunkApi) => {
+    console.log("get messges");
     try {
       // const token = thunkAPI.getState().auth.user.token
       const conversationId =

@@ -54,8 +54,23 @@ const getConversation = async (req, res, next) => {
   }
 };
 
+const getConversations = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const conversations = await Conversation.find({ participants: userId });
+    if (!conversations) {
+      res.status(400);
+      throw new Error("conversations not found");
+    }
+    return res.json(conversations);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createConversation,
   deleteConversation,
   getConversation,
+  getConversations,
 };

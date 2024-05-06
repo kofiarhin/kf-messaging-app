@@ -10,13 +10,17 @@ import AuthLayout from "./Layout/AuthLayout/AuthLayout";
 import { useSelector, useDispatch } from "react-redux";
 import { connectSocket } from "./redux/socket/socketSlice";
 import { getChatData } from "./redux/chat/chatSlice";
+import { getConversations } from "./redux/conversation/conversationSlice";
+import { getContacts } from "./redux/contact/contactSlice";
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getContacts());
+    dispatch(getConversations());
     dispatch(getChatData());
     dispatch(connectSocket());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

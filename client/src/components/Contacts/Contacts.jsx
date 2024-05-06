@@ -1,30 +1,29 @@
 import ContactList from "../ContactList/ContactList";
 import { useState, useEffect } from "react";
 import "./contacts.styles.scss";
+import {
+  createContact,
+  getContacts,
+  reset as resetContactState,
+} from "../../redux/contact/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
 
+// contacts
 const Contacts = () => {
+  const dispatch = useDispatch();
+  const { contacts, isSuccess } = useSelector((state) => state.contact);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
   });
   const { email, username } = formData;
   const [showcontactForm, setShowContactForm] = useState(false);
-  const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const getContacts = async () => {
-      try {
-        const res = await fetch("/api/contacts");
-        const data = await res.json();
-
-        setContacts(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    getContacts();
-  }, []);
+    if (isSuccess) {
+      dispatch(resetContactState());
+    }
+  }, [isSuccess]);
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -35,24 +34,15 @@ const Contacts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const dataToSubmit = {
       email,
       username,
     };
 
     try {
-      const res = await fetch("/api/contacts", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(dataToSubmit),
-      });
-      const data = await res.json();
-      setContacts(data);
-      if (res.ok) {
-        setShowContactForm(false);
-      }
+      dispatch(createContact(dataToSubmit));
+      setShowContactForm(false);
     } catch (error) {
       console.log(error.message);
     }

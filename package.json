@@ -8,7 +8,9 @@
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "reset": "nodemon server/reset.js",
+    "backup": "nodemon backup/backup.js"
   },
   "keywords": [],
   "author": "",

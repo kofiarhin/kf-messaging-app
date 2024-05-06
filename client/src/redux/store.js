@@ -6,6 +6,7 @@ import navigationReducer from "./navigation/navigationSlice";
 import socketReducer from "./socket/socketSlice";
 import messageReducer from "./message/messageSlice";
 import chatReducer from "./chat/chatSlice";
+import testReducer from "./test/testSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,5 +18,6 @@ export const store = configureStore({
     socket: socketReducer,
     message: messageReducer,
     chat: chatReducer,
+    test: testReducer,
   },
 });

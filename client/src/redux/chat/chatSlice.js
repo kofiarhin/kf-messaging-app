@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getDataFetch } from "../../utils/services";
+import { setMessage } from "../test/testSlice";
 
 const initialState = {
   data: [],
@@ -13,38 +14,14 @@ export const getChatData = createAsyncThunk(
   "chat/getChatData",
   async (_, thunkApi) => {
     try {
-      const user = thunkApi.getState().auth.user;
-      const userId = user._id;
-      const conversations = user.conversations;
-      const convoData = await Promise.all(
-        conversations.map(async (c) => {
-          const conData = await getDataFetch(`/api/conversations/${c}`);
-          const { participants } = conData;
-
-          const indexOfUser = participants.indexOf(user._id);
-          const otherUserId =
-            participants[participants.length - 1 - indexOfUser];
-          const otherUserData = await getDataFetch(`/api/users/${otherUserId}`);
-          //  get messages
-          const mesData = await getDataFetch(
-            `/api/messages?conversationId=${c}`
-          );
-          const { updatedAt, messages, ...rest } = mesData;
-          const dataToReturn = {
-            updatedAt,
-            messages,
-            participant: otherUserData,
-            conversationId: c,
-          };
-
-          return dataToReturn;
-        })
-      );
-
-      const sortedData = convoData.sort(
-        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-      );
-      return sortedData;
+      const data = await getDataFetch(`/api/chats`);
+      if (data.length > 0) {
+        const sortedData = data.sort(
+          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+        return sortedData;
+      }
+      return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

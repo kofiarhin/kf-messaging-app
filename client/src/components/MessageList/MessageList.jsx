@@ -21,9 +21,14 @@ const MessageList = () => {
     }
   }, [currentConversationId, dispatch, newMessage]);
 
+  if (messages.length === 0) {
+    return <h1> Hello World</h1>;
+  }
+
   return (
     <div id="message-list">
       {participant && <h1 className="heading center"> {participant.name} </h1>}
+
       {messages.length > 0 && (
         <>
           {messages.map((message, index) => {

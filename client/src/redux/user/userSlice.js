@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { setConversationId } from "../conversation/conversationSlice";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
@@ -70,6 +71,7 @@ export const logoutUser = createAsyncThunk(
       }
 
       localStorage.removeItem("user");
+      thunkApi.dispatch(setConversationId(""));
 
       return data;
     } catch (error) {

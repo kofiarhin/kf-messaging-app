@@ -30,14 +30,13 @@ const createContact = async (req, res, next) => {
     }
 
     // check if user is already in a conversation with contact if usedr is already in a conversation use that conversation id
-     let conversation;
+    let conversation;
     const userOne = req.user._id;
     const userTwo = user._id;
 
     conversation = await Conversation.findOne({
-      participants: { $all: [req.user._id, user._id] }
-    })
-
+      participants: { $all: [req.user._id, user._id] },
+    });
 
     if (!conversation) {
       // create conversation
@@ -47,19 +46,18 @@ const createContact = async (req, res, next) => {
 
       const { _id: conversationId, participants } = conversation;
 
-    // update user conversations
-    const conUpdates = await Promise.all(
-      participants.map(async (participant) => {
-        const userConUpdate = await User.findByIdAndUpdate(
-          participant,
-          { $push: { conversations: conversationId } },
-          { new: true }
-        );
-      })
-    );
+      // update user conversations
+      const conUpdates = await Promise.all(
+        participants.map(async (participant) => {
+          const userConUpdate = await User.findByIdAndUpdate(
+            participant,
+            { $push: { conversations: conversationId } },
+            { new: true }
+          );
+        })
+      );
     }
 
-    
     // update user contacts
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
@@ -75,7 +73,8 @@ const createContact = async (req, res, next) => {
       { new: true }
     );
 
-    return res.json(updatedUser);
+    // redirect to get contacts
+    res.redirect("/api/contacts");
   } catch (error) {
     next(error);
   }
