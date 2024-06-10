@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll",
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "npm run dev --prefix client",
@@ -12,6 +12,9 @@
     "reset": "nodemon server/reset.js",
     "backup": "nodemon backup/backup.js"
   },
+ "jest": {
+    "setupFilesAfterEnv": ["<rootDir>/server/test/setupTest.js"]
+  }, 
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,6 +29,8 @@
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }

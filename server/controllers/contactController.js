@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const Contact = require("../models/contactModel");
 const Conversation = require("../models/converstationModel");
 
+// create contact
 const createContact = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -74,7 +75,8 @@ const createContact = async (req, res, next) => {
     );
 
     // redirect to get contacts
-    res.redirect("/api/contacts");
+    // res.redirect("/api/contacts");
+    return res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
